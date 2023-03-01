@@ -1,0 +1,35 @@
+
+<html>
+
+<head>
+    <title>whether</title>
+</head>
+
+<body>
+	
+	<p id="output">Enter the name of any city to check the temperature</p>
+		<input id="city">
+		<button onclick="update_user()">Submit</button>
+	<script type="text/javascript">
+		function update_user(){
+			
+		 var city_name=document.getElementById("city").value;
+	var	httpRequest= new XMLHttpRequest();
+		url= "https://api.weatherbit.io/v2.0/current?city=" + city_name + "&key=8a18d78aed02423b8586b58b9e23677d";
+		httpRequest.open("GET",url);
+		httpRequest.send();
+
+		httpRequest.onreadystatechange = function(){
+			if(httpRequest.readyState==4 && httpRequest.status==200){
+			var	gotdata = httpRequest.responseText;
+			var	weather_data=JSON.parse(gotdata);
+				document.getElementById("output").innerHTML= "The temperature in " + city_name + " is " + weather_data.data[0].temp + "°F";
+			}
+		}
+		}
+	</script>
+
+
+</body>
+
+</html>
